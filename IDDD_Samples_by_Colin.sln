@@ -37,8 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaasOvation.IdentityAccess.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaasOvation.IdentityAccess.Infrastructure", "IdentityAccessContext\SaasOvation.IdentityAccess.Infrastructure\SaasOvation.IdentityAccess.Infrastructure.csproj", "{6C312DA5-A929-417E-8220-88E935D77A20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaasOvation.IdentityAccess.Infrastructure.Test", "IdentityAccessContext\SaasOvation.IdentityAccess.Infrastructure.Test\SaasOvation.IdentityAccess.Infrastructure.Test.csproj", "{1E47DD3F-EE06-4A61-9B7F-CF9C1268CAC2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaasOvation.AgilePm.Domain", "AgileProjectManagementContext\SaasOvation.AgilePm.Domain\SaasOvation.AgilePm.Domain.csproj", "{8E1AC75B-4AD7-4006-8ADA-0BE57915088D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaasOvation.AgilePm.Domain.Test", "AgileProjectManagementContext\SaasOvation.AgilePm.Domain.Test\SaasOvation.AgilePm.Domain.Test.csproj", "{6AA13814-F767-4923-B452-822C72376131}"
@@ -109,10 +107,6 @@ Global
 		{6C312DA5-A929-417E-8220-88E935D77A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C312DA5-A929-417E-8220-88E935D77A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C312DA5-A929-417E-8220-88E935D77A20}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E47DD3F-EE06-4A61-9B7F-CF9C1268CAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E47DD3F-EE06-4A61-9B7F-CF9C1268CAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E47DD3F-EE06-4A61-9B7F-CF9C1268CAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E47DD3F-EE06-4A61-9B7F-CF9C1268CAC2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E1AC75B-4AD7-4006-8ADA-0BE57915088D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E1AC75B-4AD7-4006-8ADA-0BE57915088D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E1AC75B-4AD7-4006-8ADA-0BE57915088D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -161,6 +155,5 @@ Global
 		{C640E501-64C4-4981-B1F1-E49524823936} = {4FF6C88B-D2BE-42EA-A98B-ADF59DDDA1D6}
 		{AA8A502D-9C58-47C9-A58B-44FA2CBCEA23} = {4FF6C88B-D2BE-42EA-A98B-ADF59DDDA1D6}
 		{6C312DA5-A929-417E-8220-88E935D77A20} = {4FF6C88B-D2BE-42EA-A98B-ADF59DDDA1D6}
-		{1E47DD3F-EE06-4A61-9B7F-CF9C1268CAC2} = {4FF6C88B-D2BE-42EA-A98B-ADF59DDDA1D6}
 	EndGlobalSection
 EndGlobal

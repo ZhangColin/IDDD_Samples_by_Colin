@@ -39,7 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MD5EncryptionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440B7D87-A01C-412E-87A0-D7455D53BD05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaasOvation.IdentityAccess.Domain\SaasOvation.IdentityAccess.Domain.csproj">
+      <Project>{D0885715-023E-4B85-A61D-A5EEDBFD7747}</Project>
+      <Name>SaasOvation.IdentityAccess.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

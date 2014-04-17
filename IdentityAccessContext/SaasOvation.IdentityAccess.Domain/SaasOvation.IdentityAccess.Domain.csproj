@@ -39,7 +39,60 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Access\Model\GroupAssignedToRole.cs" />
+    <Compile Include="Access\Model\GroupUnassignedFromrole.cs" />
+    <Compile Include="Access\Model\Role.cs" />
+    <Compile Include="Access\Model\RoleProvisioned.cs" />
+    <Compile Include="Access\Model\UserAssginedToRole.cs" />
+    <Compile Include="Access\Model\UserUnassignedFromRole.cs" />
+    <Compile Include="Access\Repository\IRoleRepository.cs" />
+    <Compile Include="Access\Service\AuthorizationService.cs" />
+    <Compile Include="Identity\Model\Group\Group.cs" />
+    <Compile Include="Identity\Model\Group\GroupGroupAdded.cs" />
+    <Compile Include="Identity\Model\Group\GroupGroupRemoved.cs" />
+    <Compile Include="Identity\Model\Group\GroupMember.cs" />
+    <Compile Include="Identity\Model\Group\GroupMemberType.cs" />
+    <Compile Include="Identity\Model\Group\GroupProvisioned.cs" />
+    <Compile Include="Identity\Model\Group\GroupUserAdded.cs" />
+    <Compile Include="Identity\Model\Group\GroupUserRemoved.cs" />
+    <Compile Include="Identity\Model\EmailAddress.cs" />
+    <Compile Include="Identity\Model\FullName.cs" />
+    <Compile Include="Identity\Model\Tenant\InvitationDescriptor.cs" />
+    <Compile Include="Identity\Model\Tenant\RegistrationInvitation.cs" />
+    <Compile Include="Identity\Model\Tenant\Tenant.cs" />
+    <Compile Include="Identity\Model\Tenant\TenantActivated.cs" />
+    <Compile Include="Identity\Model\Tenant\TenantAdministratorRegistered.cs" />
+    <Compile Include="Identity\Model\Tenant\TenantDeactivated.cs" />
+    <Compile Include="Identity\Model\Tenant\TenantId.cs" />
+    <Compile Include="Identity\Model\User\ContactInformation.cs" />
+    <Compile Include="Identity\Model\User\Person.cs" />
+    <Compile Include="Identity\Model\User\PersonContactInformationChanged.cs" />
+    <Compile Include="Identity\Model\User\PersonNameChanged.cs" />
+    <Compile Include="Identity\Model\User\PostalAddress.cs" />
+    <Compile Include="Identity\Model\User\Telephone.cs" />
+    <Compile Include="Identity\Repository\ITenantRepository.cs" />
+    <Compile Include="Identity\Model\Tenant\TenantProvisioned.cs" />
+    <Compile Include="Identity\Repository\IUserRepository.cs" />
+    <Compile Include="Identity\Service\AuthenticationService.cs" />
+    <Compile Include="Identity\Service\GroupMemberService.cs" />
+    <Compile Include="Identity\Service\IEncryptionService.cs" />
+    <Compile Include="Identity\Service\PasswordService.cs" />
+    <Compile Include="Identity\Service\TenantProvisioningService.cs" />
+    <Compile Include="Identity\Model\User\Enablement.cs" />
+    <Compile Include="Identity\Model\User\User.cs" />
+    <Compile Include="Identity\Model\User\UserDescriptor.cs" />
+    <Compile Include="Identity\Model\User\UserEnablementChanged.cs" />
+    <Compile Include="Identity\Model\User\UserPasswordChanged.cs" />
+    <Compile Include="Identity\Model\User\UserRegistered.cs" />
+    <Compile Include="Identity\Repository\IGroupRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440b7d87-a01c-412e-87a0-d7455d53bd05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
