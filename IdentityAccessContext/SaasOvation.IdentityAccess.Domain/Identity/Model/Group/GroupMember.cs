@@ -4,10 +4,12 @@ using SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant;
 
 namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
     public class GroupMember: ValueObject {
-        public TenantId TenantId { get; private set; }
-        public string Name { get; private set; }
-        public GroupMemberType Type { get; private set; }
+        public virtual TenantId TenantId { get; protected set; }
+        public virtual string Name { get; protected set; }
+        public virtual GroupMemberType Type { get; protected set; }
         protected GroupMember() {}
+
+        public virtual Group Group { get; set; }
 
         public GroupMember(TenantId tenantId, string name, GroupMemberType type) {
             AssertionConcern.NotNull(tenantId, "The tenantId must be provided.");
@@ -19,11 +21,11 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
             this.Type = type;
         }
 
-        public bool IsGroup {
+        public virtual bool IsGroup {
             get { return this.Type == GroupMemberType.Group; }
         }
-        
-        public bool IsUser {
+
+        public virtual bool IsUser {
             get { return this.Type == GroupMemberType.User; }
         }
 

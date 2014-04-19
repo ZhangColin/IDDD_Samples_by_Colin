@@ -29,7 +29,7 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
                 handled = true;
             });
 
-            user.DefineEnablement(new Enablement(false, DateTime.MinValue, DateTime.MinValue));
+            user.DefineEnablement(new Enablement(false, null, null));
 
             Assert.IsFalse(user.IsEnabled);
             Assert.IsTrue(handled);

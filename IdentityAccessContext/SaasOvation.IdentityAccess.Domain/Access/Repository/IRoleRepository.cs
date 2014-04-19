@@ -7,7 +7,7 @@ namespace SaasOvation.IdentityAccess.Domain.Access.Repository {
     public interface IRoleRepository {
         void Add(Role role);
         ICollection<Role> AllRoles(TenantId tenantId);
-        Role RoleNamed(TenantId identity, string roleName);
+        Role RoleNamed(TenantId tenantId, string roleName);
         void Remove(Role role);
     }
 }

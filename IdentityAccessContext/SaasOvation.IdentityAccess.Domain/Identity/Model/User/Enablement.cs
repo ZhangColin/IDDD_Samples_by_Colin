@@ -5,12 +5,12 @@ using SaasOvation.Common.Domain.Model;
 namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
     public class Enablement: ValueObject {
         public bool Enabled { get; private set; }
-        public DateTime StartDate { get; private set; }
-        public DateTime EndDate { get; private set; }
+        public DateTime? StartDate { get; private set; }
+        public DateTime? EndDate { get; private set; }
 
         protected Enablement() { }
 
-        public Enablement(bool enabled, DateTime startDate, DateTime endDate) {
+        public Enablement(bool enabled, DateTime? startDate, DateTime? endDate) {
             this.Enabled = enabled;
             this.StartDate = startDate;
             this.EndDate = endDate;
@@ -33,7 +33,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
         public bool IsTimeExpired() {
             bool timeExpired = false;
 
-            if (this.StartDate != DateTime.MinValue && this.EndDate != DateTime.MinValue) {
+            if (this.StartDate != null && this.EndDate != null) {
                 DateTime now = DateTime.Now;
                 if (now < this.StartDate || now > this.EndDate) {
                     timeExpired = true;
@@ -54,7 +54,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
         }
 
         public static Enablement IndefiniteEnablement() {
-            return new Enablement(true, DateTime.MinValue, DateTime.MinValue);
+            return new Enablement(true, null, null);
         }
     }
 }

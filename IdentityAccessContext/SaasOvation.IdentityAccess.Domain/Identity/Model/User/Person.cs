@@ -3,38 +3,38 @@ using SaasOvation.Common.Domain.Model;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant;
 
 namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
-    public class Person: EntityWithCompositeId {
+    public class Person: ConcurrencySafeEntity {
         private TenantId _tenantId;
         private FullName _name;
         private ContactInformation _contactInformation;
 
-        public TenantId TenantId {
+        public virtual TenantId TenantId {
             get { return this._tenantId; }
-            internal set {
+            set {
                 AssertionConcern.NotNull(value, "The tenantId is required.");
                 this._tenantId = value;
             }
         }
 
-        public FullName Name {
+        public virtual FullName Name {
             get { return this._name; }
-            private set {
+            protected set {
                 AssertionConcern.NotNull(value, "The person name is required.");
                 this._name = value;
             }
         }
 
-        public ContactInformation ContactInformation {
+        public virtual ContactInformation ContactInformation {
             get { return this._contactInformation; }
-            set {
+            protected set {
                 AssertionConcern.NotNull(value, "The person contact information is required.");
                 this._contactInformation = value;
             }
         }
 
-        public User User { get; internal set; }
+        public virtual User User { get; set; }
 
-        public EmailAddress EmailAddress {
+        public virtual EmailAddress EmailAddress {
             get { return ContactInformation.EmailAddress; }
         }
 
@@ -46,14 +46,14 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
             this.ContactInformation = contactInformation;
         }
 
-        public void ChangeContactInformation(ContactInformation contactInformation) {
+        public virtual void ChangeContactInformation(ContactInformation contactInformation) {
             this.ContactInformation = contactInformation;
 
             DomainEventPublisher.Instance.Publish(new PersonContactInformationChanged(this.TenantId, this.User.UserName,
                 this.ContactInformation));
         }
 
-        public void ChangeName(FullName name) {
+        public virtual void ChangeName(FullName name) {
             this.Name = name;
 
             DomainEventPublisher.Instance.Publish(new PersonNameChanged(this.TenantId, this.User.UserName, this.Name));

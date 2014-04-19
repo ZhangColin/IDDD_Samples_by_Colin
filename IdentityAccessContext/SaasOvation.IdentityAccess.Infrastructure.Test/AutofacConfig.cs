@@ -2,9 +2,8 @@
 using SaasOvation.Common;
 using SaasOvation.IdentityAccess.Domain.Access.Service;
 using SaasOvation.IdentityAccess.Domain.Identity.Service;
-using SaasOvation.IdentityAccess.Infrastructure;
 
-namespace SaasOvation.IdentityAccess.Domain.Test {
+namespace SaasOvation.IdentityAccess.Infrastructure.Test {
     public static class AutofacConfig {
 
         private static void RegisterService(ContainerBuilder builder) {

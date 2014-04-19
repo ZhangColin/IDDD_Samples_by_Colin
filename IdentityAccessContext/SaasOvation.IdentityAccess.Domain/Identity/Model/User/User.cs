@@ -6,13 +6,13 @@ using SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant;
 using SaasOvation.IdentityAccess.Domain.Identity.Service;
 
 namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
-    public class User: EntityWithCompositeId {
-        private TenantId _tenantId;
+    public class User: ConcurrencySafeEntity {
+        private  TenantId _tenantId;
         private string _userName;
         private Enablement _enablement;
         private Person _person;
 
-        public TenantId TenantId {
+        public virtual TenantId TenantId {
             get { return this._tenantId; }
             set {
                 AssertionConcern.NotNull(value, "The tenantId is required.");
@@ -20,7 +20,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
             }
         }
 
-        public string UserName {
+        public virtual string UserName {
             get { return this._userName; }
             set {
                 AssertionConcern.NotEmpty(value, "The username is required.");
@@ -30,9 +30,9 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
             }
         }
 
-        public string Password { get; private set; }
+        public virtual string Password { get; protected set; }
 
-        public Enablement Enablement {
+        public virtual Enablement Enablement {
             get { return this._enablement; }
             set {
                 AssertionConcern.NotNull(value, "The enablement is required.");
@@ -40,7 +40,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
             }
         }
 
-        public Person Person {
+        public virtual Person Person {
             get { return this._person; }
             set {
                 AssertionConcern.NotNull(value, "The person is required.");
@@ -64,17 +64,17 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
                 tenantId, userName, person.Name, person.ContactInformation.EmailAddress));
         }
 
-        public bool IsEnabled {
+        public virtual bool IsEnabled {
             get { return this.Enablement.IsEnablementEnabled(); }
         }
 
-        public UserDescriptor UserDescriptor {
+        public virtual UserDescriptor UserDescriptor {
             get {
                 return new UserDescriptor(TenantId, UserName, Person.EmailAddress.Address);
             }
         }
 
-        public void ChangePassword(string currentPassword, string changedPassword) {
+        public virtual void ChangePassword(string currentPassword, string changedPassword) {
             AssertionConcern.NotEmpty(currentPassword, "Current and new password must be provided.");
             AssertionConcern.Equals(this.Password, this.AsEncryptedValue(currentPassword),
                 "Current password not confirmed");
@@ -84,21 +84,21 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
             DomainEventPublisher.Instance.Publish(new UserPasswordChanged(this.TenantId, this.UserName));
         }
 
-        public void ChangePersonalContactInformation(ContactInformation contactInformation) {
+        public virtual void ChangePersonalContactInformation(ContactInformation contactInformation) {
             Person.ChangeContactInformation(contactInformation);
         }
 
-        public void ChangePersonalName(FullName personalName) {
+        public virtual void ChangePersonalName(FullName personalName) {
             Person.ChangeName(personalName);
         }
 
-        public void DefineEnablement(Enablement enablement) {
+        public virtual void DefineEnablement(Enablement enablement) {
             this.Enablement = enablement;
             DomainEventPublisher.Instance.Publish(new UserEnablementChanged(this.TenantId, this.UserName,
                 this.Enablement));
         }
 
-        internal GroupMember ToGroupMember() {
+        protected internal virtual GroupMember ToGroupMember() {
             return new GroupMember(TenantId, UserName, GroupMemberType.User);
         }
 

@@ -5,6 +5,8 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model {
     public class EmailAddress: ValueObject {
         private string _address;
 
+        protected EmailAddress() { }
+
         public EmailAddress(string address) {
             this.Address = address;
         }

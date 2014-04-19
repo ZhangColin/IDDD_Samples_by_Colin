@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using SaasOvation.Common.Domain.Model;
 
 namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant {
-    public class RegistrationInvitation: EntityWithCompositeId {
-        public TenantId TenantId { get; private set; }
-        public string InvitationId { get; private set; }
-        public string Description { get; private set; }
-        public DateTime StartingOn { get; private set; }
-        public DateTime Until { get; private set; }
+    public class RegistrationInvitation: ConcurrencySafeEntity {
+        public virtual TenantId TenantId { get; protected set; }
+        public virtual string InvitationId { get; protected set; }
+        public virtual string Description { get; protected set; }
+        public virtual DateTime StartingOn { get; protected set; }
+        public virtual DateTime Until { get; protected set; }
+
+        protected RegistrationInvitation() { }
 
         public RegistrationInvitation(TenantId tenantId, string invitationId,
             string description, DateTime startingOn, DateTime until) {
@@ -22,7 +24,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant {
         public RegistrationInvitation(TenantId tenantId, string invitationId, string description):
             this(tenantId, invitationId, description, DateTime.MinValue, DateTime.MinValue) {}
 
-        public bool IsAvailable() {
+        public virtual bool IsAvailable() {
             bool isAvailable = false;
 
             if(this.StartingOn==DateTime.MinValue && this.Until==DateTime.MinValue) {
@@ -37,7 +39,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant {
             return isAvailable;
         }
 
-        public bool IsIdentifiedBy(string invitationIdentifier) {
+        public virtual bool IsIdentifiedBy(string invitationIdentifier) {
             bool isIdentified = this.InvitationId.Equals(invitationIdentifier);
             if(!isIdentified && this.Description!=null) {
                 isIdentified = this.Description.Equals(invitationIdentifier);
@@ -46,23 +48,23 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant {
             return isIdentified;
         }
 
-        public RegistrationInvitation OpenEnded() {
+        public virtual RegistrationInvitation OpenEnded() {
             this.StartingOn = DateTime.MinValue;
             this.Until = DateTime.MinValue;
             return this;
         }
 
-        public RegistrationInvitation RedefineAs() {
+        public virtual RegistrationInvitation RedefineAs() {
             this.StartingOn = DateTime.MinValue;
             this.Until = DateTime.MinValue;
             return this;
         }
 
-        public InvitationDescriptor ToDescriptor() {
+        public virtual InvitationDescriptor ToDescriptor() {
             return new InvitationDescriptor(this.TenantId, this.InvitationId, this.Description, this.StartingOn, this.Until);
         }
 
-        public RegistrationInvitation WillStartOn(DateTime date) {
+        public virtual RegistrationInvitation WillStartOn(DateTime date) {
             if(this.Until!=DateTime.MinValue) {
                 throw new InvalidOperationException("Cannot set starting-on date after until date.");
             }
@@ -73,7 +75,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant {
             return this;
         }
 
-        public RegistrationInvitation LastingUntil(DateTime date) {
+        public virtual RegistrationInvitation LastingUntil(DateTime date) {
             if(this.StartingOn==DateTime.MinValue) {
                 throw new InvalidOperationException("Cannot set until date before setting starting-on date.");
             }

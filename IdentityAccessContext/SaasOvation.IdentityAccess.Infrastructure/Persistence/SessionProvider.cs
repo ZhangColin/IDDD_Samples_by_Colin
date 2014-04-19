@@ -1,22 +1,21 @@
 ﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
-using NHibernate.Dialect;
-using NHibernate.Hql.Ast.ANTLR;
 
-namespace SaasOvation.IdentityAccess.Domain.Test {
+namespace SaasOvation.IdentityAccess.Infrastructure.Persistence {
     public class SessionProvider {
         private ISessionFactory _sessionFactory;
         private ISession _session;
 
         private ISessionFactory GetSessionFactory() {
-            if(_sessionFactory == null) {
-                _sessionFactory = Fluently.Configure()
+            if(this._sessionFactory == null) {
+                this._sessionFactory = Fluently.Configure()
                     .Database(MsSqlConfiguration.MsSql2012.ConnectionString(
-                    ""))
+                        "server=.;uid=sa;pwd=truth;Trusted_Connection=no;database=IDDD"))
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<SessionProvider>())
                     .BuildSessionFactory();
             }
-            return _sessionFactory;
+            return this._sessionFactory;
         }
 
         private ISession GetNewSession() {
@@ -24,10 +23,10 @@ namespace SaasOvation.IdentityAccess.Domain.Test {
         }
 
         public ISession GetSession() {
-            if(_session==null ||!_session.IsOpen) {
-                _session = this.GetNewSession();
+            if(this._session==null ||!this._session.IsOpen) {
+                this._session = this.GetNewSession();
             }
-            return _session;
+            return this._session;
         }
     }
 }

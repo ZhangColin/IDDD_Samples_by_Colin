@@ -33,17 +33,8 @@
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="FluentNHibernate">
-      <HintPath>..\..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -58,25 +49,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access\AuthorizationServiceTest.cs" />
-    <Compile Include="Access\RoleRepositoryTest.cs" />
     <Compile Include="Access\RoleTest.cs" />
-    <Compile Include="AutofacConfig.cs" />
     <Compile Include="DomainTest.cs" />
-    <Compile Include="IdentityAccessTest.cs" />
     <Compile Include="Identity\Model\ContactInformationTest.cs" />
     <Compile Include="Identity\Model\EnablementTest.cs" />
     <Compile Include="Identity\Model\FullNameTest.cs" />
     <Compile Include="Identity\Model\GroupTest.cs" />
     <Compile Include="Identity\Model\TenantTest.cs" />
     <Compile Include="Identity\Model\UserTest.cs" />
-    <Compile Include="Identity\Repository\GroupRepositoryTest.cs" />
     <Compile Include="Identity\Service\AuthenticationServiceTest.cs" />
     <Compile Include="Identity\Service\PasswordServiceTest.cs" />
     <Compile Include="Identity\Service\TenantProvisioningServiceTest.cs" />
-    <Compile Include="RepositoryTest.cs" />
-    <Compile Include="Identity\Repository\UserRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

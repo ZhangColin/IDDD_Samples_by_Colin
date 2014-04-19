@@ -4,17 +4,17 @@ using SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant;
 using SaasOvation.IdentityAccess.Domain.Identity.Service;
 
 namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
-    public class Group: EntityWithCompositeId {
+    public class Group: ConcurrencySafeEntity {
         public const string RoleGroupPrefix = "ROLE-INTERNAL-GROUP: ";
 
-        public TenantId TenantId { get; private set; }
-        public string Name { get; private set; }
-        public string Description { get; private set; }
+        public virtual TenantId TenantId { get; protected set; }
+        public virtual string Name { get; protected set; }
+        public virtual string Description { get; protected set; }
 
-        public ISet<GroupMember> GroupMembers { get; private set; } 
+        public virtual IList<GroupMember> GroupMembers { get; protected set; } 
 
         protected Group() {
-            GroupMembers = new HashSet<GroupMember>();
+            GroupMembers = new List<GroupMember>();
         }
 
         public Group(TenantId tenantId, string name, string description): this() {
@@ -27,17 +27,21 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
             get { return this.Name.StartsWith(RoleGroupPrefix); }
         }
 
-        public void AddGroup(Group group, IGroupMemberService groupMemberService) {
+        public virtual void AddGroup(Group group, IGroupMemberService groupMemberService) {
             AssertionConcern.NotNull(group, "Group must not be null.");
             AssertionConcern.Equals(this.TenantId, group.TenantId, "Wrong tenant for this group.");
             AssertionConcern.False(groupMemberService.IsMemberGroup(group, this.ToGroupMember()), "Group recurrsion.");
 
-            if(this.GroupMembers.Add(group.ToGroupMember()) && !this.IsInternalGroup) {
+            /*if (this.GroupMembers.Add(group.ToGroupMember()) && !this.IsInternalGroup) {
+                DomainEventPublisher.Instance.Publish(new GroupGroupAdded(this.TenantId, this.Name, group.Name));
+            }*/
+            this.GroupMembers.Add(group.ToGroupMember());
+            if(!this.IsInternalGroup) {
                 DomainEventPublisher.Instance.Publish(new GroupGroupAdded(this.TenantId, this.Name, group.Name));
             }
         }
 
-        public void RemoveGroup(Group group) {
+        public virtual void RemoveGroup(Group group) {
             AssertionConcern.NotNull(group, "Group must not be null.");
             AssertionConcern.Equals(this.TenantId, group.TenantId, "Wrong tenant for this group.");
 
@@ -46,17 +50,21 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
             }
         }
 
-        public void AddUser(User.User user) {
+        public virtual void AddUser(User.User user) {
             AssertionConcern.NotNull(user, "User must not be null.");
             AssertionConcern.Equals(this.TenantId, user.TenantId, "Wrong tenant for this group.");
             AssertionConcern.True(user.IsEnabled, "User is not enabled.");
 
-            if (this.GroupMembers.Add(user.ToGroupMember()) && !this.IsInternalGroup) {
+            /*if (this.GroupMembers.Add(user.ToGroupMember()) && !this.IsInternalGroup) {
+                DomainEventPublisher.Instance.Publish(new GroupUserAdded(this.TenantId, this.Name, user.UserName));
+            }*/
+            this.GroupMembers.Add(user.ToGroupMember());
+            if (!this.IsInternalGroup) {
                 DomainEventPublisher.Instance.Publish(new GroupUserAdded(this.TenantId, this.Name, user.UserName));
             }
         }
 
-        public void RemoveUser(User.User user) {
+        public virtual void RemoveUser(User.User user) {
             AssertionConcern.NotNull(user, "User must not be null.");
             AssertionConcern.Equals(this.TenantId, user.TenantId, "Wrong tenant for this group.");
 
@@ -65,7 +73,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
             }
         }
 
-        public bool IsMember(User.User user, IGroupMemberService groupMemberService) {
+        public virtual bool IsMember(User.User user, IGroupMemberService groupMemberService) {
             AssertionConcern.NotNull(user, "User must not be null.");
             AssertionConcern.Equals(this.TenantId, user.TenantId, "Wrong tenant for this group.");
             AssertionConcern.True(user.IsEnabled, "User is not enabled.");
@@ -82,7 +90,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
             return isMember;
         }
 
-        internal GroupMember ToGroupMember() {
+        protected internal virtual GroupMember ToGroupMember() {
             return new GroupMember(this.TenantId, this.Name, GroupMemberType.Group);
         }
 

@@ -7,14 +7,14 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
     public class EnablementTest {
         [Test]
         public void TestEnablementEnabled() {
-            Enablement enablement = new Enablement(true, DateTime.MinValue, DateTime.MinValue);
+            Enablement enablement = new Enablement(true, null, null);
 
             Assert.IsTrue(enablement.IsEnablementEnabled());
         }
 
         [Test]
         public void TestEnablementDisabled() {
-            Enablement enablement = new Enablement(false, DateTime.MinValue, DateTime.MinValue);
+            Enablement enablement = new Enablement(false, null, null);
 
             Assert.IsFalse(enablement.IsEnablementEnabled());
         }

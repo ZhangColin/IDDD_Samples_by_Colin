@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaasOvation.AgilePm.Port", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaasOvation.AgilePm.Port.Test", "AgileProjectManagementContext\SaasOvation.AgilePm.Port.Test\SaasOvation.AgilePm.Port.Test.csproj", "{634A051F-A817-4896-BD33-493093D93605}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaasOvation.IdentityAccess.Infrastructure.Test", "IdentityAccessContext\SaasOvation.IdentityAccess.Infrastructure.Test\SaasOvation.IdentityAccess.Infrastructure.Test.csproj", "{3BD67D93-63ED-4755-9666-B0D0AEBCEB4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,10 @@ Global
 		{634A051F-A817-4896-BD33-493093D93605}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{634A051F-A817-4896-BD33-493093D93605}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{634A051F-A817-4896-BD33-493093D93605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BD67D93-63ED-4755-9666-B0D0AEBCEB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD67D93-63ED-4755-9666-B0D0AEBCEB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD67D93-63ED-4755-9666-B0D0AEBCEB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD67D93-63ED-4755-9666-B0D0AEBCEB4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,5 +161,6 @@ Global
 		{C640E501-64C4-4981-B1F1-E49524823936} = {4FF6C88B-D2BE-42EA-A98B-ADF59DDDA1D6}
 		{AA8A502D-9C58-47C9-A58B-44FA2CBCEA23} = {4FF6C88B-D2BE-42EA-A98B-ADF59DDDA1D6}
 		{6C312DA5-A929-417E-8220-88E935D77A20} = {4FF6C88B-D2BE-42EA-A98B-ADF59DDDA1D6}
+		{3BD67D93-63ED-4755-9666-B0D0AEBCEB4A} = {4FF6C88B-D2BE-42EA-A98B-ADF59DDDA1D6}
 	EndGlobalSection
 EndGlobal
