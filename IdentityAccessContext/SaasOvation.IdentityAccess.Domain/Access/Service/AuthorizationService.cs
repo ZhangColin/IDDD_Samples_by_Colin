@@ -8,15 +8,15 @@ using SaasOvation.IdentityAccess.Domain.Identity.Service;
 
 namespace SaasOvation.IdentityAccess.Domain.Access.Service {
     public class AuthorizationService {
-        private readonly IGroupMemberService _groupMemberService;
         private readonly IRoleRepository _roleRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IGroupRepository _groupRepository;
 
-        public AuthorizationService(IGroupMemberService groupMemberService, IRoleRepository roleRepository,
-            IUserRepository userRepository) {
-            this._groupMemberService = groupMemberService;
+        public AuthorizationService(IUserRepository userRepository, IGroupRepository groupRepository,
+            IRoleRepository roleRepository) {
             this._roleRepository = roleRepository;
             this._userRepository = userRepository;
+            this._groupRepository = groupRepository;
         }
 
 
@@ -37,7 +37,7 @@ namespace SaasOvation.IdentityAccess.Domain.Access.Service {
             if (user.IsEnabled) {
                 Role role = _roleRepository.RoleNamed(user.TenantId, roleName);
                 if (role != null) {
-                    authorized = role.IsInRole(user, _groupMemberService);
+                    authorized = role.IsInRole(user, new GroupMemberService(_userRepository, _groupRepository));
                 }
             }
 

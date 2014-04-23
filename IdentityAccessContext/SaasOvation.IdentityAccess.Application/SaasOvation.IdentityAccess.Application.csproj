@@ -39,7 +39,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessApplicationService.cs" />
+    <Compile Include="Commands\ActivateTenantCommand.cs" />
+    <Compile Include="Commands\AddGroupToGroupCommand.cs" />
+    <Compile Include="Commands\AddUserToGroupCommand.cs" />
+    <Compile Include="Commands\AssignUserToGroupCommand.cs" />
+    <Compile Include="Commands\AssignUserToRoleCommand.cs" />
+    <Compile Include="Commands\AuthenticateUserCommand.cs" />
+    <Compile Include="Commands\ChangeContactInfoCommand.cs" />
+    <Compile Include="Commands\ChangeEmailAddressCommand.cs" />
+    <Compile Include="Commands\ChangePostalAddressCommand.cs" />
+    <Compile Include="Commands\ChangePrimaryTelephoneCommand.cs" />
+    <Compile Include="Commands\ChangeSecondaryTelephoneCommand.cs" />
+    <Compile Include="Commands\ChangeUserPasswordCommand.cs" />
+    <Compile Include="Commands\ChangeUserPersonalNameCommand.cs" />
+    <Compile Include="Commands\DeactivateTenantCommand.cs" />
+    <Compile Include="Commands\DefineUserEnablementCommand.cs" />
+    <Compile Include="Commands\ProvisionGroupCommand.cs" />
+    <Compile Include="Commands\ProvisionRoleCommand.cs" />
+    <Compile Include="Commands\ProvisionTenantCommand.cs" />
+    <Compile Include="Commands\RemoveGroupFromGroupCommand.cs" />
+    <Compile Include="Commands\RemoveUserFromGroupCommand.cs" />
+    <Compile Include="IdentityAccessEventProcessor.cs" />
+    <Compile Include="IdentityApplicationService.cs" />
+    <Compile Include="NotificationApplicationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Commands\RegisterUserCommand.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440B7D87-A01C-412E-87A0-D7455D53BD05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaasOvation.IdentityAccess.Domain\SaasOvation.IdentityAccess.Domain.csproj">
+      <Project>{D0885715-023E-4B85-A61D-A5EEDBFD7747}</Project>
+      <Name>SaasOvation.IdentityAccess.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

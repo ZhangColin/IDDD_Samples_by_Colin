@@ -11,8 +11,8 @@ namespace SaasOvation.IdentityAccess.Infrastructure.Persistence {
     public class RoleRepository: IRoleRepository {
         private readonly ISession _session;
 
-        public RoleRepository(ISession session) {
-            this._session = session;
+        public RoleRepository(SessionProvider sessionProvider) {
+            this._session = sessionProvider.GetSession();
         }
         
         public void Add(Role role) {

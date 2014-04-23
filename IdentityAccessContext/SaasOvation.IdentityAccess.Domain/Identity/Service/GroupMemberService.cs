@@ -4,13 +4,7 @@ using SaasOvation.IdentityAccess.Domain.Identity.Model.User;
 using SaasOvation.IdentityAccess.Domain.Identity.Repository;
 
 namespace SaasOvation.IdentityAccess.Domain.Identity.Service {
-    public interface IGroupMemberService {
-        bool ConfirmUser(Group group, User user);
-        bool IsMemberGroup(Group group, GroupMember groupMember);
-        bool IsUserInNestedGroup(Group group, User user);
-    }
-
-    public class GroupMemberService: IGroupMemberService {
+    public class GroupMemberService {
         private readonly IUserRepository _userRepository;
         private readonly IGroupRepository _groupRepository;
 

@@ -104,7 +104,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.User {
 
         private void ProtectPassword(string currentPassword, string changedPassword) {
             AssertionConcern.NotEquals(currentPassword, changedPassword, "The password is unchanged.");
-            AssertionConcern.False(ServiceLocator.GetService<PasswordService>().IsWeak(changedPassword),
+            AssertionConcern.False(new PasswordService().IsWeak(changedPassword),
                 "The password must be stronger.");
             AssertionConcern.NotEquals(UserName, changedPassword, "The username and password must not be the same.");
 

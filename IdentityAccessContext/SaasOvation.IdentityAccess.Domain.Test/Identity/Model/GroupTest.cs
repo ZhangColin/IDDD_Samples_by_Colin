@@ -5,6 +5,7 @@ using SaasOvation.Common.Domain.Model;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.Group;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.User;
+using SaasOvation.IdentityAccess.Domain.Identity.Repository;
 using SaasOvation.IdentityAccess.Domain.Identity.Service;
 
 namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
@@ -20,10 +21,12 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
             Group groupA = tenant.ProvisionGroup("GroupA", "A group named GroupA.");
             Group groupB = tenant.ProvisionGroup("GroupB", "A group named GroupB.");
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(groupB, new GroupMember(groupA.TenantId, groupA.Name, GroupMemberType.Group)));
-            groupA.AddGroup(groupB, groupMemberService.Object);
+            Mock<IGroupRepository> groupRepository =new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(groupA.TenantId, groupA.Name)).Returns(groupA);
+            groupRepository.Setup(r => r.GroupNamed(groupB.TenantId, groupB.Name)).Returns(groupB);
+            Mock<IUserRepository> userRepository =new Mock<IUserRepository>();
+
+            groupA.AddGroup(groupB, new GroupMemberService(userRepository.Object, groupRepository.Object));
 
             Assert.AreEqual(1, groupA.GroupMembers.Count);
             Assert.AreEqual(0, groupB.GroupMembers.Count);
@@ -39,10 +42,13 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
 
             Group groupA = tenant.ProvisionGroup("GroupA", "A group named GroupA.");
             Group groupB = tenant.ProvisionGroup("GroupB", "A group named GroupB.");
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(groupB, new GroupMember(groupA.TenantId, groupA.Name, GroupMemberType.Group)));
-            groupA.AddGroup(groupB, groupMemberService.Object);
+
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(groupA.TenantId, groupA.Name)).Returns(groupA);
+            groupRepository.Setup(r => r.GroupNamed(groupB.TenantId, groupB.Name)).Returns(groupB);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+
+            groupA.AddGroup(groupB, new GroupMemberService(userRepository.Object, groupRepository.Object));
 
             Assert.AreEqual(1, groupA.GroupMembers.Count);
 
@@ -62,11 +68,13 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
             User user = this.CreateUser(tenant);
             groupA.AddUser(user);
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(s => s.ConfirmUser(groupA, user)).Returns(true);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(groupA.TenantId, groupA.Name)).Returns(groupA);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(r => r.UserWithUserName(user.TenantId, user.UserName)).Returns(user);
             
             Assert.AreEqual(1, groupA.GroupMembers.Count);
-            Assert.IsTrue(groupA.IsMember(user, groupMemberService.Object));
+            Assert.IsTrue(groupA.IsMember(user, new GroupMemberService(userRepository.Object, groupRepository.Object)));
             Assert.AreEqual(1, groupUserAddedCount);
         }
 
@@ -99,17 +107,20 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
             Group groupA = tenant.ProvisionGroup("GroupA", "A group named GroupA.");
             Group groupB = tenant.ProvisionGroup("GroupB", "A group named GroupB.");
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(groupB, new GroupMember(groupA.TenantId, groupA.Name, GroupMemberType.Group)));
-            groupA.AddGroup(groupB, groupMemberService.Object);
-            groupMemberService.Setup(s => s.IsUserInNestedGroup(groupA, user)).Returns(true);
-            groupMemberService.Setup(s => s.ConfirmUser(groupB, user)).Returns(true);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(groupA.TenantId, groupA.Name)).Returns(groupA);
+            groupRepository.Setup(r => r.GroupNamed(groupB.TenantId, groupB.Name)).Returns(groupB);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(r => r.UserWithUserName(user.TenantId, user.UserName)).Returns(user);
+
+            GroupMemberService groupMemberService = new GroupMemberService(userRepository.Object, groupRepository.Object);
+
+            groupA.AddGroup(groupB, groupMemberService);
 
             groupB.AddUser(user);
 
-            Assert.IsTrue(groupB.IsMember(user, groupMemberService.Object));
-            Assert.IsTrue(groupA.IsMember(user, groupMemberService.Object));
+            Assert.IsTrue(groupB.IsMember(user, groupMemberService));
+            Assert.IsTrue(groupA.IsMember(user, groupMemberService));
 
             Assert.AreEqual(1, groupGroupAddedCount);
         }
@@ -121,14 +132,16 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
             Group groupA = new Group(user.TenantId, "GroupA", "A group named GroupA.");
             Group groupB = new Group(user.TenantId, "GroupB", "A group named GroupB.");
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(s => s.IsMemberGroup(null, null)).Returns(false);
-            groupMemberService.Setup(s => s.IsUserInNestedGroup(groupA, user)).Returns(false);
-            groupMemberService.Setup(s => s.ConfirmUser(groupB, user)).Returns(false);
-            groupA.AddGroup(groupB, groupMemberService.Object);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(groupA.TenantId, groupA.Name)).Returns(groupA);
+            groupRepository.Setup(r => r.GroupNamed(groupB.TenantId, groupB.Name)).Returns(groupB);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(r => r.UserWithUserName(user.TenantId, user.UserName)).Returns(user);
 
-            Assert.IsFalse(groupB.IsMember(user, groupMemberService.Object));
-            Assert.IsFalse(groupA.IsMember(user, groupMemberService.Object));
+            GroupMemberService groupMemberService = new GroupMemberService(userRepository.Object, groupRepository.Object);
+
+            Assert.IsFalse(groupB.IsMember(user, groupMemberService));
+            Assert.IsFalse(groupA.IsMember(user, groupMemberService));
         }
 
         [Test]
@@ -140,21 +153,17 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
             Group groupB = new Group(user.TenantId, "GroupB", "A group named GroupB.");
             Group groupC = new Group(user.TenantId, "GroupC", "A group named GroupC.");
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(groupB, new GroupMember(groupA.TenantId, groupA.Name, GroupMemberType.Group)))
-                .Returns(false);
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(groupC, new GroupMember(groupB.TenantId, groupB.Name, GroupMemberType.Group)))
-                .Returns(false);
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(groupA, new GroupMember(groupC.TenantId, groupC.Name, GroupMemberType.Group)))
-                .Returns(true);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(groupA.TenantId, groupA.Name)).Returns(groupA);
+            groupRepository.Setup(r => r.GroupNamed(groupB.TenantId, groupB.Name)).Returns(groupB);
+            groupRepository.Setup(r => r.GroupNamed(groupC.TenantId, groupC.Name)).Returns(groupC);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
 
-            groupA.AddGroup(groupB, groupMemberService.Object);
-            groupB.AddGroup(groupC, groupMemberService.Object);
+            GroupMemberService groupMemberService = new GroupMemberService(userRepository.Object, groupRepository.Object);
+            groupA.AddGroup(groupB, groupMemberService);
+            groupB.AddGroup(groupC, groupMemberService);
 
-            groupC.AddGroup(groupA, groupMemberService.Object);
+            groupC.AddGroup(groupA, groupMemberService);
         }
 
         

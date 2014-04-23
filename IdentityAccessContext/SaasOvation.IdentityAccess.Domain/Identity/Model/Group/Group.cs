@@ -27,7 +27,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
             get { return this.Name.StartsWith(RoleGroupPrefix); }
         }
 
-        public virtual void AddGroup(Group group, IGroupMemberService groupMemberService) {
+        public virtual void AddGroup(Group group, GroupMemberService groupMemberService) {
             AssertionConcern.NotNull(group, "Group must not be null.");
             AssertionConcern.Equals(this.TenantId, group.TenantId, "Wrong tenant for this group.");
             AssertionConcern.False(groupMemberService.IsMemberGroup(group, this.ToGroupMember()), "Group recurrsion.");
@@ -73,7 +73,7 @@ namespace SaasOvation.IdentityAccess.Domain.Identity.Model.Group {
             }
         }
 
-        public virtual bool IsMember(User.User user, IGroupMemberService groupMemberService) {
+        public virtual bool IsMember(User.User user, GroupMemberService groupMemberService) {
             AssertionConcern.NotNull(user, "User must not be null.");
             AssertionConcern.Equals(this.TenantId, user.TenantId, "Wrong tenant for this group.");
             AssertionConcern.True(user.IsEnabled, "User is not enabled.");

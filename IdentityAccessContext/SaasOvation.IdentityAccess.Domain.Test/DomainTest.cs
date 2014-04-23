@@ -16,7 +16,6 @@ namespace SaasOvation.IdentityAccess.Domain.Test {
 
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterType<MD5EncryptionService>().As<IEncryptionService>();
-            builder.RegisterType<PasswordService>();
             IContainer container = builder.Build();
             ServiceLocator.Resolver = new AutofacResolver(container);
 

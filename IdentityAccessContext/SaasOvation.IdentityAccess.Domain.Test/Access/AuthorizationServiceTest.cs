@@ -20,14 +20,14 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Access {
             Role managerRole = tenant.ProvisionRole("Manager", "A manager role.", true);
             managerRole.AssignUser(user);
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(s => s.ConfirmUser(managerRole.Group, user)).Returns(true);
             Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(r => r.UserWithUserName(tenant.TenantId, user.UserName)).Returns(user);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
             Mock<IRoleRepository> roleRepository = new Mock<IRoleRepository>();
             roleRepository.Setup(r => r.RoleNamed(tenant.TenantId, "Manager")).Returns(managerRole);
 
-            AuthorizationService service = new AuthorizationService(groupMemberService.Object,
-                roleRepository.Object, userRepository.Object);
+            AuthorizationService service = new AuthorizationService(
+                userRepository.Object, groupRepository.Object, roleRepository.Object);
 
             Assert.IsTrue(service.IsUserInRole(user, "Manager"));
             Assert.IsFalse(service.IsUserInRole(user, "Director"));
@@ -41,15 +41,14 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Access {
             Role managerRole = tenant.ProvisionRole("Manager", "A manager role.", true);
             managerRole.AssignUser(user);
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(s => s.ConfirmUser(managerRole.Group, user)).Returns(true);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
             Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
             userRepository.Setup(r => r.UserWithUserName(tenant.TenantId, user.UserName)).Returns(user);
             Mock<IRoleRepository> roleRepository = new Mock<IRoleRepository>();
             roleRepository.Setup(r => r.RoleNamed(tenant.TenantId, "Manager")).Returns(managerRole);
 
-            AuthorizationService service = new AuthorizationService(groupMemberService.Object,
-                roleRepository.Object, userRepository.Object);
+            AuthorizationService service = new AuthorizationService(
+                userRepository.Object, groupRepository.Object, roleRepository.Object);
 
             Assert.IsTrue(service.IsUserInRole(tenant.TenantId, user.UserName, "Manager"));
             Assert.IsFalse(service.IsUserInRole(tenant.TenantId, user.UserName, "Director"));

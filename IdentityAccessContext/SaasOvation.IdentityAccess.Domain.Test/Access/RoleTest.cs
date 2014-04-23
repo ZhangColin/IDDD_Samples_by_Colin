@@ -5,6 +5,7 @@ using SaasOvation.IdentityAccess.Domain.Access.Model;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.Group;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.User;
+using SaasOvation.IdentityAccess.Domain.Identity.Repository;
 using SaasOvation.IdentityAccess.Domain.Identity.Service;
 
 namespace SaasOvation.IdentityAccess.Domain.Test.Access {
@@ -17,17 +18,18 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Access {
             Role managerRole = tenant.ProvisionRole("Manager", "A manager role.", true);
             Group group = new Group(user.TenantId, "Managers", "A group of managers.");
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(group, new GroupMember(group.TenantId, group.Name, GroupMemberType.Group))).Returns(false);
-            groupMemberService.Setup(s => s.ConfirmUser(group, user)).Returns(true);
-            groupMemberService.Setup(s => s.IsUserInNestedGroup(managerRole.Group, user)).Returns(true);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(group.TenantId, group.Name)).Returns(group);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(r => r.UserWithUserName(user.TenantId, user.UserName)).Returns(user);
 
-            managerRole.AssignGroup(group, groupMemberService.Object);
+            GroupMemberService groupMemberService = new GroupMemberService(userRepository.Object, groupRepository.Object);
+
+            managerRole.AssignGroup(group, groupMemberService);
             group.AddUser(user);
 
-            Assert.IsTrue(group.IsMember(user, groupMemberService.Object));
-            Assert.IsTrue(managerRole.IsInRole(user, groupMemberService.Object));
+            Assert.IsTrue(group.IsMember(user, groupMemberService));
+            Assert.IsTrue(managerRole.IsInRole(user, groupMemberService));
         }
 
         [Test]
@@ -37,16 +39,18 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Access {
             Role managerRole = tenant.ProvisionRole("Manager", "A manager role.", true);
             Group group = new Group(user.TenantId, "Managers", "A group of managers.");
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(group, new GroupMember(group.TenantId, group.Name, GroupMemberType.Group))).Returns(false);
-            groupMemberService.Setup(s => s.IsUserInNestedGroup(managerRole.Group, user)).Returns(false);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(group.TenantId, group.Name)).Returns(group);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(r => r.UserWithUserName(user.TenantId, user.UserName)).Returns(user);
 
-            managerRole.AssignGroup(group, groupMemberService.Object);
+            GroupMemberService groupMemberService = new GroupMemberService(userRepository.Object, groupRepository.Object);
+
+            managerRole.AssignGroup(group, groupMemberService);
             Role accountantRole = new Role(user.TenantId, "Accountant", "An accountant role.", false);
 
-            Assert.IsFalse(managerRole.IsInRole(user, groupMemberService.Object));
-            Assert.IsFalse(accountantRole.IsInRole(user, groupMemberService.Object));
+            Assert.IsFalse(managerRole.IsInRole(user, groupMemberService));
+            Assert.IsFalse(accountantRole.IsInRole(user, groupMemberService));
         }
 
         [Test]
@@ -63,11 +67,14 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Access {
             Role managerRole = tenant.ProvisionRole("Manager", "A manager role.", true);
             Group group = new Group(user.TenantId, "Managers", "A group of managers.");
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(group, new GroupMember(group.TenantId, group.Name, GroupMemberType.Group))).Returns(false);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(group.TenantId, group.Name)).Returns(group);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(r => r.UserWithUserName(user.TenantId, user.UserName)).Returns(user);
 
-            managerRole.AssignGroup(group, groupMemberService.Object);
+            GroupMemberService groupMemberService = new GroupMemberService(userRepository.Object, groupRepository.Object);
+
+            managerRole.AssignGroup(group, groupMemberService);
             managerRole.AssignUser(user);
             group.AddUser(user);
 
@@ -89,11 +96,14 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Access {
             Role managerRole = tenant.ProvisionRole("Manager", "A manager role.", true);
             Group group = new Group(user.TenantId, "Managers", "A group of managers.");
 
-            Mock<IGroupMemberService> groupMemberService = new Mock<IGroupMemberService>();
-            groupMemberService.Setup(
-                s => s.IsMemberGroup(group, new GroupMember(group.TenantId, group.Name, GroupMemberType.Group))).Returns(false);
+            Mock<IGroupRepository> groupRepository = new Mock<IGroupRepository>();
+            groupRepository.Setup(r => r.GroupNamed(group.TenantId, group.Name)).Returns(group);
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(r => r.UserWithUserName(user.TenantId, user.UserName)).Returns(user);
 
-            managerRole.AssignGroup(group, groupMemberService.Object);
+            GroupMemberService groupMemberService = new GroupMemberService(userRepository.Object, groupRepository.Object);
+
+            managerRole.AssignGroup(group, groupMemberService);
             managerRole.AssignUser(user);
 
             managerRole.UnassignUser(user);

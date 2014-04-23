@@ -9,8 +9,8 @@ namespace SaasOvation.IdentityAccess.Infrastructure.Persistence {
     public class TenantRepository: ITenantRepository {
         private readonly ISession _session;
 
-        public TenantRepository(ISession session) {
-            this._session = session;
+        public TenantRepository(SessionProvider sessionProvider) {
+            this._session = sessionProvider.GetSession();
         }
 
         public TenantId GetNextIdentity() {

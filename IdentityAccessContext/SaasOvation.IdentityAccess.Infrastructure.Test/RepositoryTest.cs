@@ -25,16 +25,15 @@ namespace SaasOvation.IdentityAccess.Infrastructure.Test {
         protected void SetUp() {
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterType<MD5EncryptionService>().As<IEncryptionService>();
-            builder.RegisterType<PasswordService>();
             IContainer container = builder.Build();
             ServiceLocator.Resolver = new AutofacResolver(container);
 
 
-            _sessionProvider = new SessionProvider();
-            this.UserRepository = new UserRepository(Session);
-            this.GroupRepository = new GroupRepository(Session);
-            this.TenantRepository = new TenantRepository(Session);
-            this.RoleRepository = new RoleRepository(Session);
+            _sessionProvider = new SessionProvider("server=.;uid=sa;pwd=truth;Trusted_Connection=no;database=IDDD");
+            this.UserRepository = new UserRepository(_sessionProvider);
+            this.GroupRepository = new GroupRepository(_sessionProvider);
+            this.TenantRepository = new TenantRepository(_sessionProvider);
+            this.RoleRepository = new RoleRepository(_sessionProvider);
             _transaction = Session.BeginTransaction();
 
             DomainEventPublisher.Instance.Reset();

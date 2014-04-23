@@ -30,10 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -45,10 +50,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessApplicationServiceTest.cs" />
+    <Compile Include="ApplicationServiceTest.cs" />
+    <Compile Include="IdentityApplicationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440B7D87-A01C-412E-87A0-D7455D53BD05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaasOvation.IdentityAccess.Application\SaasOvation.IdentityAccess.Application.csproj">
+      <Project>{C640E501-64C4-4981-B1F1-E49524823936}</Project>
+      <Name>SaasOvation.IdentityAccess.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaasOvation.IdentityAccess.Domain\SaasOvation.IdentityAccess.Domain.csproj">
+      <Project>{D0885715-023E-4B85-A61D-A5EEDBFD7747}</Project>
+      <Name>SaasOvation.IdentityAccess.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaasOvation.IdentityAccess.Infrastructure\SaasOvation.IdentityAccess.Infrastructure.csproj">
+      <Project>{6C312DA5-A929-417E-8220-88E935D77A20}</Project>
+      <Name>SaasOvation.IdentityAccess.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,8 +11,8 @@ namespace SaasOvation.IdentityAccess.Infrastructure.Persistence {
     public class GroupRepository: IGroupRepository {
         private readonly ISession _session;
 
-        public GroupRepository(ISession session) {
-            this._session = session;
+        public GroupRepository(SessionProvider sessionProvider) {
+            this._session = sessionProvider.GetSession();
         }
 
         public Group GroupNamed(TenantId tenantId, string groupName) {

@@ -35,7 +35,7 @@ namespace SaasOvation.IdentityAccess.Domain.Access.Model {
             return new Group(this.TenantId, groupName, "Role backing group for: "+this.Name);
         }
 
-        public virtual void AssignGroup(Group group, IGroupMemberService groupMemberService) {
+        public virtual void AssignGroup(Group group, GroupMemberService groupMemberService) {
             AssertionConcern.True(this.SupportsNesting, "This role does not support group nestiong.");
             AssertionConcern.NotNull(group, "Group must not be null.");
             AssertionConcern.Equals(this.TenantId, group.TenantId, "Wrong tenant for this group.");
@@ -74,7 +74,7 @@ namespace SaasOvation.IdentityAccess.Domain.Access.Model {
             DomainEventPublisher.Instance.Publish(new UserUnassignedFromRole(this.TenantId, this.Name, user.UserName));
         }
 
-        public virtual bool IsInRole(User user, IGroupMemberService groupMemberService) {
+        public virtual bool IsInRole(User user, GroupMemberService groupMemberService) {
             return this.Group.IsMember(user, groupMemberService);
         }
 

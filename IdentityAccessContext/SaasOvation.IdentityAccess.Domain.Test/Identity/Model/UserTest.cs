@@ -130,7 +130,7 @@ namespace SaasOvation.IdentityAccess.Domain.Test.Identity.Model {
         public void TestUserPasswordHashedOnChange() {
             User user = CreateUser(this.CreateTenant());
 
-            string strongPassword = ServiceLocator.GetService<PasswordService>().GenerateStrongPassword();
+            string strongPassword = new PasswordService().GenerateStrongPassword();
 
             user.ChangePassword(_password, strongPassword);
 

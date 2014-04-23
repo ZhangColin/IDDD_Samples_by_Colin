@@ -11,8 +11,8 @@ namespace SaasOvation.IdentityAccess.Infrastructure.Persistence {
     public class UserRepository: IUserRepository {
         private readonly ISession _session;
 
-        public UserRepository(ISession session) {
-            this._session = session;
+        public UserRepository(SessionProvider sessionProvider) {
+            this._session = sessionProvider.GetSession();
         }
 
         public void Add(User user) {
