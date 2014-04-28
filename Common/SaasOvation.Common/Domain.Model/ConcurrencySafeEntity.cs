@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace SaasOvation.Common.Domain.Model {
-    public abstract class ConcurrencySafeEntity: EntityWithCompositeId {
+    public abstract class ConcurrencySafeEntity: Entity {
         public virtual int ConcurrencyVersion { get; protected set; }
 
         public virtual void FailWhenConcurrencyVersion(int version) {

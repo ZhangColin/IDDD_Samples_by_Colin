@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,7 +42,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendars\CalendarApplicationService.cs" />
+    <Compile Include="Calendars\CalendarEntryApplicationService.cs" />
+    <Compile Include="Calendars\CalendarEntryQueryService.cs" />
+    <Compile Include="Calendars\CalendarQueryService.cs" />
+    <Compile Include="Calendars\Data\CalendarData.cs" />
+    <Compile Include="Calendars\Data\CalendarEntryData.cs" />
+    <Compile Include="Calendars\Data\CalendarEntryInviteeData.cs" />
+    <Compile Include="Calendars\Data\CalendarSharerData.cs" />
+    <Compile Include="Calendars\Data\ICalendarCommandResult.cs" />
+    <Compile Include="Forums\Data\DiscussiondData.cs" />
+    <Compile Include="Forums\Data\DiscussionPostsData.cs" />
+    <Compile Include="Forums\Data\ForumData.cs" />
+    <Compile Include="Forums\Data\ForumDiscussionsData.cs" />
+    <Compile Include="Forums\Data\IDiscussionCommandResult.cs" />
+    <Compile Include="Forums\Data\IForumCommandResult.cs" />
+    <Compile Include="Forums\Data\PostData.cs" />
+    <Compile Include="Forums\DiscussionApplicationService.cs" />
+    <Compile Include="Forums\DiscussionQueryService.cs" />
+    <Compile Include="Forums\ForumApplicationService.cs" />
+    <Compile Include="Forums\ForumQueryService.cs" />
+    <Compile Include="Forums\PostApplicationService.cs" />
+    <Compile Include="Forums\PostQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440B7D87-A01C-412E-87A0-D7455D53BD05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaasOvation.Collaboration.Domain\SaasOvation.Collaboration.Domain.csproj">
+      <Project>{90D3872A-1886-40E9-B20B-94B4C858BA87}</Project>
+      <Name>SaasOvation.Collaboration.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

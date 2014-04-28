@@ -3,7 +3,6 @@ using Autofac;
 using NUnit.Framework;
 using SaasOvation.Common;
 using SaasOvation.Common.Domain.Model;
-using SaasOvation.Common.Domain.Model.Process;
 using SaasOvation.IdentityAccess.Domain.Access.Model;
 using SaasOvation.IdentityAccess.Domain.Identity.Model;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.Group;

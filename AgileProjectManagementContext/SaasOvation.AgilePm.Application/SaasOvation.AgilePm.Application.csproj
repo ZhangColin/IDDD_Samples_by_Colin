@@ -39,7 +39,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServiceLifeCycle.cs" />
+    <Compile Include="Notifications\NotificationApplicationService.cs" />
+    <Compile Include="Processes\ProcessApplicationService.cs" />
+    <Compile Include="Products\BacklogItems\BacklogItemApplicationService.cs" />
+    <Compile Include="Products\InitiateDiscussionCommand.cs" />
+    <Compile Include="Products\NewProductCommand.cs" />
+    <Compile Include="Products\ProductApplicationService.cs" />
+    <Compile Include="Products\RequestProductDiscussionCommand.cs" />
+    <Compile Include="Products\RetryProductDiscussionRequestCommand.cs" />
+    <Compile Include="Products\StartDiscussionInitiationCommand.cs" />
+    <Compile Include="Products\TimeOutProductDiscussionRequestCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprints\CommitBacklogItemToSprintCommand.cs" />
+    <Compile Include="Sprints\SprintApplicationService.cs" />
+    <Compile Include="Teams\ChangeTeamMemberEmailAddressCommand.cs" />
+    <Compile Include="Teams\ChangeTeamMemberNameCommand.cs" />
+    <Compile Include="Teams\DisableMemberCommand.cs" />
+    <Compile Include="Teams\DisableProductOwnerCommand.cs" />
+    <Compile Include="Teams\DisableTeamMemberCommand.cs" />
+    <Compile Include="Teams\EnableMemberCommand.cs" />
+    <Compile Include="Teams\EnableProductOwnerCommand.cs" />
+    <Compile Include="Teams\EnableTeamMemberCommand.cs" />
+    <Compile Include="Teams\TeamApplicationService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440B7D87-A01C-412E-87A0-D7455D53BD05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaasOvation.AgilePm.Domain\SaasOvation.AgilePm.Domain.csproj">
+      <Project>{8E1AC75B-4AD7-4006-8ADA-0BE57915088D}</Project>
+      <Name>SaasOvation.AgilePm.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

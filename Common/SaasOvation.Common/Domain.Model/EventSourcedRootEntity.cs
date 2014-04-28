@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace SaasOvation.Common.Domain.Model {
-    public abstract class EventSourcedRootEntity: EntityWithCompositeId {
+    public abstract class EventSourcedRootEntity: Entity {
         private readonly List<IDomainEvent> _mutatingEvents;
         private readonly int _unmutatedVersion;
 

@@ -34,6 +34,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -48,6 +51,7 @@
       <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,21 +66,19 @@
     <Compile Include="Domain.Model\ConcurrencySafeEntity.cs" />
     <Compile Include="Domain.Model\DomainEventPublisher.cs" />
     <Compile Include="Domain.Model\Entity.cs" />
-    <Compile Include="Domain.Model\EntityWithCompositeId.cs" />
     <Compile Include="Domain.Model\EventSourcedRootEntity.cs" />
     <Compile Include="Domain.Model\HashCodeHelper.cs" />
     <Compile Include="Domain.Model\Identity.cs" />
     <Compile Include="Domain.Model\IDomainEvent.cs" />
     <Compile Include="Domain.Model\IDomainEventSubscriber.cs" />
-    <Compile Include="Domain.Model\IIdentity.cs" />
     <Compile Include="Domain.Model\IValidationNotificationHandler.cs" />
-    <Compile Include="Domain.Model\Process\AbstractProcess.cs" />
-    <Compile Include="Domain.Model\Process\IProcess.cs" />
-    <Compile Include="Domain.Model\Process\ITimeConstrainedProcessTrackerRepository.cs" />
-    <Compile Include="Domain.Model\Process\ProcessCompletionType.cs" />
-    <Compile Include="Domain.Model\Process\ProcessId.cs" />
-    <Compile Include="Domain.Model\Process\ProcessTimedOut.cs" />
-    <Compile Include="Domain.Model\Process\TimeConstrainedProcessTracker.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\AbstractProcess.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\IProcess.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\ITimeConstrainedProcessTrackerRepository.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\ProcessCompletionType.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\ProcessId.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\ProcessTimedOut.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\TimeConstrainedProcessTracker.cs" />
     <Compile Include="Domain.Model\Validator.cs" />
     <Compile Include="Domain.Model\ValueObject.cs" />
     <Compile Include="Events\EventSerializer.cs" />
@@ -99,8 +101,7 @@
     <Compile Include="Notifications\NotificationLogId.cs" />
     <Compile Include="Notifications\NotificationLogInfo.cs" />
     <Compile Include="Port.Adapter\Persistence\AbstractQueryService.cs" />
-    <Compile Include="Port.Adapter\Persistence\JoinOn.cs" />
-    <Compile Include="Port.Adapter\Persistence\ResultSetObjectMapper.cs" />
+    <Compile Include="Port.Adapter\Persistence\Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
   </ItemGroup>

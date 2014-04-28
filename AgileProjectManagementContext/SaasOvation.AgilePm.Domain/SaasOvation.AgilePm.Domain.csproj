@@ -39,7 +39,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Discussions\DiscussionAvailability.cs" />
+    <Compile Include="Discussions\DiscussionDescriptor.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItem.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemCategoryChanged.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemCommitted.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemDiscussion.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemDiscussionInitiated.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemDiscussionRequested.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemId.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemMarkedAsRemoved.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemScheduled.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemStatus.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemStatusChanged.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemStoryPointsAssigned.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemStoryTold.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemSummarized.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemType.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemTypeChanged.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemUncommitted.cs" />
+    <Compile Include="Products\Model\BacklogItems\BacklogItemUnscheduled.cs" />
+    <Compile Include="Products\Model\BacklogItems\BusinessPrionrity.cs" />
+    <Compile Include="Products\Model\BacklogItems\BusinessPriorityAssigned.cs" />
+    <Compile Include="Products\Model\BacklogItems\BusinessPriorityRatings.cs" />
+    <Compile Include="Products\Model\BacklogItems\BusinessPriorityTotals.cs" />
+    <Compile Include="Products\Model\BacklogItems\EstimationLogEntry.cs" />
+    <Compile Include="Products\Model\BacklogItems\StoryPoints.cs" />
+    <Compile Include="Products\Model\BacklogItems\Task.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskDefined.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskDescribed.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskHoursRemainingEstimated.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskId.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskRemoved.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskRenamed.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskStatus.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskStatusChanged.cs" />
+    <Compile Include="Products\Model\BacklogItems\TaskVolunteerAssigned.cs" />
+    <Compile Include="Products\Model\Products\Product.cs" />
+    <Compile Include="Products\Model\Products\ProductBacklogItem.cs" />
+    <Compile Include="Products\Model\Products\ProductBacklogItemPlanned.cs" />
+    <Compile Include="Products\Model\Products\ProductCreated.cs" />
+    <Compile Include="Products\Model\Products\ProductDiscussion.cs" />
+    <Compile Include="Products\Model\Products\ProductDiscussionInitiated.cs" />
+    <Compile Include="Products\Model\Products\ProductDiscussionRequested.cs" />
+    <Compile Include="Products\Model\Products\ProductDiscussionRequestTimedOut.cs" />
+    <Compile Include="Products\Model\Products\ProductId.cs" />
+    <Compile Include="Products\Model\Products\ProductReleaseScheduled.cs" />
+    <Compile Include="Products\Model\Products\ProductSprintScheduled.cs" />
+    <Compile Include="Products\Model\Releases\Release.cs" />
+    <Compile Include="Products\Model\Releases\ReleaseId.cs" />
+    <Compile Include="Products\Model\Releases\ScheduledBacklogItem.cs" />
+    <Compile Include="Products\Model\Sprints\CommittedBacklogItem.cs" />
+    <Compile Include="Products\Model\Sprints\Sprint.cs" />
+    <Compile Include="Products\Model\Sprints\SprintId.cs" />
+    <Compile Include="Products\Repository\IBacklogItemRepository.cs" />
+    <Compile Include="Products\Repository\IProductRepository.cs" />
+    <Compile Include="Products\Repository\IReleaseRepository.cs" />
+    <Compile Include="Products\Repository\ISprintRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Teams\Model\Member.cs" />
+    <Compile Include="Teams\Model\MemberChangeTracker.cs" />
+    <Compile Include="Teams\Model\ProductOwner.cs" />
+    <Compile Include="Teams\Model\ProductOwnerId.cs" />
+    <Compile Include="Teams\Model\Team.cs" />
+    <Compile Include="Teams\Model\TeamMember.cs" />
+    <Compile Include="Teams\Model\TeamMemberId.cs" />
+    <Compile Include="Teams\Repository\IProductOwnerRepository.cs" />
+    <Compile Include="Teams\Repository\ITeamMemberRepository.cs" />
+    <Compile Include="Teams\Repository\ITeamRepository.cs" />
+    <Compile Include="Tenants\TenantId.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440B7D87-A01C-412E-87A0-D7455D53BD05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Products\Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
