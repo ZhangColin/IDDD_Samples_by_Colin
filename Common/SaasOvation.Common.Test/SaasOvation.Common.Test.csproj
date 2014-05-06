@@ -33,6 +33,9 @@
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -46,11 +49,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain.Model\EventTrackingTestCase.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\TestableTimeConstrainedProcess.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\TestableTimeConstrainedProcessTimedOut.cs" />
+    <Compile Include="Domain.Model\LongRunningProcess\TestableTimeConstrainedRepository.cs" />
+    <Compile Include="Port.Adapter\Messaging\AllPhoneNumbersCounted.cs" />
+    <Compile Include="Port.Adapter\Messaging\AllPhoneNumbersListed.cs" />
+    <Compile Include="Port.Adapter\Messaging\MatchedPhoneNumbersCounted.cs" />
+    <Compile Include="Port.Adapter\Messaging\PhoneNumberProcessEvent.cs" />
+    <Compile Include="Port.Adapter\Messaging\PhoneNumbersMatched.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\RabbitMqNotificationPublisherTest.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\SlothMqPipesFiltersTest.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\SlothTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440B7D87-A01C-412E-87A0-D7455D53BD05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

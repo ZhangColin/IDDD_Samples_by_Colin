@@ -45,10 +45,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainTest.cs" />
+    <Compile Include="Forum\ForumTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\SaasOvation.Common\SaasOvation.Common.csproj">
+      <Project>{440B7D87-A01C-412E-87A0-D7455D53BD05}</Project>
+      <Name>SaasOvation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaasOvation.Collaboration.Domain\SaasOvation.Collaboration.Domain.csproj">
+      <Project>{90D3872A-1886-40E9-B20B-94B4C858BA87}</Project>
+      <Name>SaasOvation.Collaboration.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

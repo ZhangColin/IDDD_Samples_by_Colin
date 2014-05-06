@@ -58,7 +58,6 @@
     <Compile Include="Persistence\Maps\TenantMap.cs" />
     <Compile Include="Persistence\Maps\UserMap.cs" />
     <Compile Include="Persistence\RoleRepository.cs" />
-    <Compile Include="Persistence\SessionProvider.cs" />
     <Compile Include="Persistence\TenantRepository.cs" />
     <Compile Include="Persistence\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

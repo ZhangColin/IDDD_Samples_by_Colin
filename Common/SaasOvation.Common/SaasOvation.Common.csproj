@@ -43,12 +43,14 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\packages\RabbitMQ.Client.3.3.0\lib\net30\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -100,6 +102,28 @@
     <Compile Include="Notifications\NotificationLogFactory.cs" />
     <Compile Include="Notifications\NotificationLogId.cs" />
     <Compile Include="Notifications\NotificationLogInfo.cs" />
+    <Compile Include="Notifications\PublishedNotificationTracker.cs" />
+    <Compile Include="Persistence\ICleanableStore.cs" />
+    <Compile Include="Persistence\SessionProvider.cs" />
+    <Compile Include="Port.Adapter\Messaging\MessageException.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\BrokerChannel.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\ConnectionSettings.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\Exchange.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\ExchangeListener.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\MessageConsumer.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\MessageListener.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\MessageParameters.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\MessageProducer.cs" />
+    <Compile Include="Port.Adapter\Messaging\RabbitMq\Queue.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\ClientRegistration.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\ExchangeListener.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\ExchangePublisher.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\ReceiveState.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\SendContext.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\SlothClient.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\SlothServer.cs" />
+    <Compile Include="Port.Adapter\Messaging\SlothMq\SocketService.cs" />
+    <Compile Include="Port.Adapter\Notification\RabbitMqNotificationPublisher.cs" />
     <Compile Include="Port.Adapter\Persistence\AbstractQueryService.cs" />
     <Compile Include="Port.Adapter\Persistence\Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

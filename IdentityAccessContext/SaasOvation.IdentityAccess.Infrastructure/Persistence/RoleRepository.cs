@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Criterion;
+using SaasOvation.Common.Persistence;
 using SaasOvation.IdentityAccess.Domain.Access.Model;
 using SaasOvation.IdentityAccess.Domain.Access.Repository;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant;

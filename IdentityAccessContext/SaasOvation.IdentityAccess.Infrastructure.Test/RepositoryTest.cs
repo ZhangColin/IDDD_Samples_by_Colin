@@ -4,6 +4,7 @@ using NHibernate;
 using NUnit.Framework;
 using SaasOvation.Common;
 using SaasOvation.Common.Domain.Model;
+using SaasOvation.Common.Persistence;
 using SaasOvation.IdentityAccess.Domain.Access.Repository;
 using SaasOvation.IdentityAccess.Domain.Identity.Model;
 using SaasOvation.IdentityAccess.Domain.Identity.Model.Tenant;
@@ -29,7 +30,7 @@ namespace SaasOvation.IdentityAccess.Infrastructure.Test {
             ServiceLocator.Resolver = new AutofacResolver(container);
 
 
-            _sessionProvider = new SessionProvider("server=.;uid=sa;pwd=truth;Trusted_Connection=no;database=IDDD");
+            _sessionProvider = new SessionProvider("server=.;uid=sa;pwd=truth;Trusted_Connection=no;database=IDDD", typeof(GroupRepository).Assembly);
             this.UserRepository = new UserRepository(_sessionProvider);
             this.GroupRepository = new GroupRepository(_sessionProvider);
             this.TenantRepository = new TenantRepository(_sessionProvider);

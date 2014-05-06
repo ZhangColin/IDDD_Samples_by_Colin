@@ -11,6 +11,7 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.Mvc;
 using SaasOvation.Common;
+using SaasOvation.Common.Persistence;
 using SaasOvation.IdentityAccess.Application;
 using SaasOvation.IdentityAccess.Domain.Access.Repository;
 using SaasOvation.IdentityAccess.Domain.Access.Service;
