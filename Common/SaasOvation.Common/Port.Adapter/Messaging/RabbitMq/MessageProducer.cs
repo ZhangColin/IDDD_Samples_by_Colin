@@ -3,7 +3,8 @@ using System.Text;
 using RabbitMQ.Client;
 
 namespace SaasOvation.Common.Port.Adapter.Messaging.RabbitMq {
-    public class MessageProducer {
+
+        public class MessageProducer {
         private readonly BrokerChannel _brokerChannel;
 
         public MessageProducer(BrokerChannel brokerChannel) {

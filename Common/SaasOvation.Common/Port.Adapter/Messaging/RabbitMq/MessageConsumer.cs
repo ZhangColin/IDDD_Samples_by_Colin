@@ -1,16 +1,17 @@
 ﻿using System;
-using Iesi.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using RabbitMQ.Client.Framing.Impl.v0_8;
 
 namespace SaasOvation.Common.Port.Adapter.Messaging.RabbitMq {
+    
     public class MessageConsumer {
         protected MessageConsumer(Queue queue, bool autoAcknowledged) {
             this.Queue = queue;
             this.AutoAcknowledged = autoAcknowledged;
 
-            this.MessageTypes = new HashedSet<string>();
+            this.MessageTypes = new List<string>();
         }
 
         public bool Closed { get; set; }
@@ -21,7 +22,7 @@ namespace SaasOvation.Common.Port.Adapter.Messaging.RabbitMq {
 
         protected Queue Queue { get; set; }
 
-        private ISet<string> MessageTypes { get; set; }
+        private IEnumerable<string> MessageTypes { get; set; }
 
         public static MessageConsumer Instance(Queue queue) {
             return new MessageConsumer(queue, false);
@@ -57,28 +58,32 @@ namespace SaasOvation.Common.Port.Adapter.Messaging.RabbitMq {
             if(messageTypes==null) {
                 messageTypes = new string[0];
             }
-            this.MessageTypes = new HashedSet<string>(messageTypes);
+            this.MessageTypes = new List<string>(messageTypes);
             this.ReceiveFor(messageListener);
         }
 
         private void ReceiveFor(MessageListener messageListener) {
-            try {
-                this.Tag = this.Queue.Channel.BasicConsume(this.Queue.Name, this.AutoAcknowledged,
-                    new DispatchingConsumer(this.Queue.Channel, messageListener, this.MessageTypes,
-                        this.AutoAcknowledged, this));
-            }
-            catch(Exception e) {
-                throw new MessageException("Failed to initiate consumer.", e);
-            }
+            //Action action = () => {
+                try {
+                    DispatchingConsumer consumer = new DispatchingConsumer(this.Queue.Channel, messageListener, this.MessageTypes,
+                        this.AutoAcknowledged, this);
+                    this.Tag = this.Queue.Channel.BasicConsume(this.Queue.Name, this.AutoAcknowledged,
+                        consumer);
+                }
+                catch (Exception e) {
+                    throw new MessageException("Failed to initiate consumer.", e);
+                }
+//            };
+//            action.BeginInvoke(null, null);
         }
 
         private class DispatchingConsumer: DefaultBasicConsumer  {
             private MessageListener MessageListener { get; set; }
-            private ISet<string> FilteredMessageTypes { get; set; }
+            private IEnumerable<string> FilteredMessageTypes { get; set; }
             private bool AutoAcknowledged { get; set; }
             private MessageConsumer MessageConsumer { get; set; }
 
-            public DispatchingConsumer(IModel model, MessageListener messageListener, ISet<string> filteredMessageTypes,
+            public DispatchingConsumer(IModel model, MessageListener messageListener, IEnumerable<string> filteredMessageTypes,
                 bool autoAcknowledged, MessageConsumer messageConsumer): base(model) {
                 this.MessageListener = messageListener;
                 this.FilteredMessageTypes = filteredMessageTypes;
@@ -109,7 +114,7 @@ namespace SaasOvation.Common.Port.Adapter.Messaging.RabbitMq {
                     }
                     else if(this.MessageListener.IsTextListener()) {
                         this.MessageListener.HandleMessage(basicProperties.Type, basicProperties.MessageId,
-                            basicProperties.Timestamp, body, (long)deliveryTag, redelivered);
+                            basicProperties.Timestamp, Encoding.UTF8.GetString(body), (long)deliveryTag, redelivered);
                     }
 
                     this.Ack(deliveryTag);
@@ -147,7 +152,7 @@ namespace SaasOvation.Common.Port.Adapter.Messaging.RabbitMq {
 
             private bool FilteredMessagetype(IBasicProperties basicProperties) {
                 bool filtered = false;
-                if(!this.FilteredMessageTypes.IsEmpty) {
+                if(this.FilteredMessageTypes.Any()) {
                     string messageType = basicProperties.Type;
                     if(string.IsNullOrEmpty(messageType) || !FilteredMessageTypes.Contains(messageType)) {
                         filtered = true;

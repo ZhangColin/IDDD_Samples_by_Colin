@@ -1,7 +1,9 @@
 ﻿using RabbitMQ.Client;
 
 namespace SaasOvation.Common.Port.Adapter.Messaging.RabbitMq {
-    public abstract class BrokerChannel {
+    
+
+        public abstract class BrokerChannel {
         private IConnection _connection;
         private string _host;
 

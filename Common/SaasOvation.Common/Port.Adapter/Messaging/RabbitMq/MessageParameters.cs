@@ -14,23 +14,24 @@ namespace SaasOvation.Common.Port.Adapter.Messaging.RabbitMq {
         }
 
         public static MessageParameters DurableTextParameters(IModel model, string type, string messageId,
-            AmqpTimestamp timestamp) {
+            DateTime timestamp) {
+            
             IBasicProperties properties = model.CreateBasicProperties();
             properties.ContentType = "text/plain";
             properties.DeliveryMode = 2;
             properties.MessageId = messageId;
-            properties.Timestamp = timestamp;
+            properties.Timestamp = new AmqpTimestamp(timestamp.Ticks);
             properties.Type = type;
             return new MessageParameters(properties);
         }
         
         public static MessageParameters TextParameters(IModel model, string type, string messageId,
-            AmqpTimestamp timestamp) {
+            DateTime timestamp) {
             IBasicProperties properties = model.CreateBasicProperties();
             properties.ContentType = "text/plain";
             properties.DeliveryMode = 1;
             properties.MessageId = messageId;
-            properties.Timestamp = timestamp;
+            properties.Timestamp = new AmqpTimestamp(timestamp.Ticks);
             properties.Type = type;
             return new MessageParameters(properties);
         }
