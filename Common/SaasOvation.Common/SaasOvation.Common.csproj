@@ -97,6 +97,7 @@
     <Compile Include="Events\StoredEvent.cs" />
     <Compile Include="IResolver.cs" />
     <Compile Include="Notifications\INotificationPublisher.cs" />
+    <Compile Include="Notifications\IPublishedNotificationTrackerStore.cs" />
     <Compile Include="Notifications\Notification.cs" />
     <Compile Include="Notifications\NotificationLog.cs" />
     <Compile Include="Notifications\NotificationLogFactory.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Notifications\PublishedNotificationTracker.cs" />
     <Compile Include="Persistence\ICleanableStore.cs" />
     <Compile Include="Persistence\SessionProvider.cs" />
+    <Compile Include="Port.Adapter\Messaging\Exchanges.cs" />
     <Compile Include="Port.Adapter\Messaging\MessageException.cs" />
     <Compile Include="Port.Adapter\Messaging\RabbitMq\BrokerChannel.cs" />
     <Compile Include="Port.Adapter\Messaging\RabbitMq\ConnectionSettings.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Port.Adapter\Messaging\SlothMq\SlothServer.cs" />
     <Compile Include="Port.Adapter\Messaging\SlothMq\SocketService.cs" />
     <Compile Include="Port.Adapter\Notification\RabbitMqNotificationPublisher.cs" />
+    <Compile Include="Port.Adapter\Notification\SlothMqNotificationPublisher.cs" />
     <Compile Include="Port.Adapter\Persistence\AbstractQueryService.cs" />
     <Compile Include="Port.Adapter\Persistence\Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

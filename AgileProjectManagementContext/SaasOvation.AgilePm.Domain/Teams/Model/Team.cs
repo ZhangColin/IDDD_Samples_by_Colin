@@ -12,19 +12,21 @@ namespace SaasOvation.AgilePm.Domain.Teams.Model {
 
         private readonly HashSet<TeamMember> _teamMembers; 
 
-        public Team(TenantId tenantId, string name, ProductOwner productOwner = null) {
+        public Team(TenantId tenantId, string name) {
             AssertionConcern.NotNull(tenantId, "The tenant id must be provided.");
             AssertionConcern.NotEmpty(name, "The name must be provided.");
             AssertionConcern.Length(name, 100, "The name must be 100 characters or less.");
-            AssertionConcern.NotNull(productOwner, "The productOwner must be provided.");
-            AssertionConcern.Equals(tenantId, productOwner.TenantId, "The productOwner must be of the same tenant.");
                       
             this.TenantId = tenantId;
             this.Name = name;
-            if(productOwner!=null) {
-                this.ProductOwner = productOwner;
-            }
             _teamMembers = new HashSet<TeamMember>();
+        }
+        
+        public Team(TenantId tenantId, string name, ProductOwner productOwner): this(tenantId, name) {
+            AssertionConcern.NotNull(productOwner, "The productOwner must be provided.");
+            AssertionConcern.Equals(tenantId, productOwner.TenantId, "The productOwner must be of the same tenant.");
+             
+            this.ProductOwner = productOwner;
         }
 
         public ReadOnlyCollection<TeamMember> AllTeamMembers {
